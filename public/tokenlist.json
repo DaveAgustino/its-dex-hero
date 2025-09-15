@@ -9,6 +9,28 @@
     "banner": "/banner/81cd2801ee533a17f0f997a5cc2e8214faea547dfb0ba58c62fc308e661754ea.gif",
     "status": "CTO",
     "receipt": "https://dexscreenerreceiptlink.com"
+  },
+  {
+    "name": "Runner",
+    "ticker": "runner",
+    "ca": "FyB8VxxYAaVVchAgbB1kvjWdw26ovaD4ipwV1j8epump",
+    "x": "https://x.com/i/communities/1967289859040596463",
+    "website": "https://pumprunner.com/",
+    "logo": "/logo/94829682e73f51cde5217f9bd0b85756ead922baeb9b82213ca5e3c5f13d1e49.avif",
+    "banner": "/banner/e74a3940a2a8b46a8be215754ef607720b991a857f6e6f09c466de3b1667e227.gif",
+    "status": "CTO",
+    "receipt": "https://dexscreenerreceiptlink.com"
+  },
+  {
+    "name": "KIND",
+    "ticker": "KIND",
+    "ca": "V5cCiSixPLAiEDX2zZquT5VuLm4prr5t35PWmjNpump",
+    "x": "https://x.com/TheKindCoin",
+    "website": "https://linktr.ee/KarveTV",
+    "logo": "/logo/6db1f0d5bf54ce6a38efcac50d63881abc7a7241c12020079dd50b6778119077.avif",
+    "banner": "/banner/7d1068fd614e9f308143531fbf7be7e1dabe4a290886b088d90377d4b6c5c0be.jpeg",
+    "status": "CTO",
+    "receipt": "https://dexscreenerreceiptlink.com"
   }
   
 ]
