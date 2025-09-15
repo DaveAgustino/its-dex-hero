@@ -45,6 +45,7 @@ const TrendingTicker: React.FC = () => {
   const [trendingTokens, setTrendingTokens] = useState<TrendingToken[]>([]);
   const [loading, setLoading] = useState(true);
   const [timeFilter, setTimeFilter] = useState<TimeFilter>('24h');
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchTrendingTokens = async () => {
@@ -156,48 +157,60 @@ const TrendingTicker: React.FC = () => {
       
       <div className="absolute inset-0 flex items-center">
         <div className="animate-scroll flex whitespace-nowrap">
-          {/* Duplicate the content for seamless scrolling */}
-          {[...Array(3)].map((_, duplicateIndex) => (
-            <div key={duplicateIndex} className="flex items-center">
-              {trendingTokens.map((token, index) => (
-                <div key={`${duplicateIndex}-${index}`} className="flex items-center mx-4 sm:mx-6">
-                  <span className="text-yellow-300 font-bold mr-1 text-sm sm:text-base">🔥</span>
-                  <span className="bg-yellow-500/80 text-black font-bold text-xs px-1.5 py-0.5 rounded-full mr-2">
-                    #{index + 1}
-                  </span>
-                  <img 
-                    src={token.logo} 
-                    alt={token.name} 
-                    className="w-5 h-5 sm:w-6 sm:h-6 rounded-full mr-2 flex-shrink-0"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/logo/default.png';
-                    }}
-                  />
-                  <span className="font-semibold text-xs sm:text-sm">
-                    {token.ticker}
-                  </span>
-                  <span className="mx-1 sm:mx-2 text-xs opacity-75 hidden sm:inline">
-                    {token.marketCap}
-                  </span>
-                  <span 
-                    className={`text-xs sm:text-sm font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full ml-1 sm:ml-2 ${
-                      (() => {
-                        const change = timeFilter === '5m' ? token.priceChangeM5 : 
-                                      timeFilter === '1h' ? token.priceChangeH1 :
-                                      timeFilter === '6h' ? token.priceChangeH6 : token.priceChangeH24;
-                        return change >= 0 ? 'bg-green-500/30 text-green-200' : 'bg-red-500/30 text-red-200';
-                      })()
-                    }`}
-                  >
-                    {(() => {
+          {trendingTokens.map((token, index) => (
+            <div key={index} className="relative flex items-center mx-4 sm:mx-6 group">
+              <button
+                className="flex items-center focus:outline-none"
+                title="Click to copy contract address"
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+                onClick={() => {
+                  navigator.clipboard.writeText(token.ca);
+                  setCopiedIndex(index);
+                  setTimeout(() => setCopiedIndex(null), 1200);
+                }}
+                onMouseLeave={() => setCopiedIndex(null)}
+              >
+                <span className="text-yellow-300 font-bold mr-1 text-sm sm:text-base">🔥</span>
+                <span className="bg-yellow-500/80 text-black font-bold text-xs px-1.5 py-0.5 rounded-full mr-2">
+                  #{index + 1}
+                </span>
+                <img 
+                  src={token.logo} 
+                  alt={token.name} 
+                  className="w-5 h-5 sm:w-6 sm:h-6 rounded-full mr-2 flex-shrink-0"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/logo/default.png';
+                  }}
+                />
+                <span className="font-semibold text-xs sm:text-sm">
+                  {token.ticker}
+                </span>
+                <span className="mx-1 sm:mx-2 text-xs opacity-75 hidden sm:inline">
+                  {token.marketCap}
+                </span>
+                <span 
+                  className={`text-xs sm:text-sm font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full ml-1 sm:ml-2 ${
+                    (() => {
                       const change = timeFilter === '5m' ? token.priceChangeM5 : 
                                     timeFilter === '1h' ? token.priceChangeH1 :
                                     timeFilter === '6h' ? token.priceChangeH6 : token.priceChangeH24;
-                      return `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`;
-                    })()}
-                  </span>
-                </div>
-              ))}
+                      return change >= 0 ? 'bg-green-500/30 text-green-200' : 'bg-red-500/30 text-red-200';
+                    })()
+                  }`}
+                >
+                  {(() => {
+                    const change = timeFilter === '5m' ? token.priceChangeM5 : 
+                                  timeFilter === '1h' ? token.priceChangeH1 :
+                                  timeFilter === '6h' ? token.priceChangeH6 : token.priceChangeH24;
+                    return `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`;
+                  })()}
+                </span>
+              </button>
+              {/* Tooltip */}
+              <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 rounded bg-black/80 text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20 whitespace-nowrap"
+                style={{ minWidth: '80px', textAlign: 'center' }}>
+                {copiedIndex === index ? 'CA Copied!' : 'Copy CA'}
+              </span>
             </div>
           ))}
         </div>
