@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  /* Enforce global black background */
+  background: #000;
+  color: #e5e7eb;
+}
+
+.responsive-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.table-wrapper {
+  width: 100%;
+  /* Allow both horizontal and vertical scroll when needed */
+  overflow: auto;
+  /* Control how many body rows are visible before scrolling */
+  --rows-visible: 10;
+  /* Tune these if your row/header height changes */
+  --row-h: 52px;
+  --header-h: 44px;
+  max-height: calc(var(--header-h) + (var(--row-h) * var(--rows-visible)));
+}
+
+.responsive-table {
+  width: 100%;
+  min-width: 600px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(1, 46, 71, 0.05);
+  overflow: hidden;
+  border-collapse: collapse;
+  table-layout: fixed;
+  color: #000;
+}
+
+.responsive-table th, .responsive-table td {
+  padding: 12px 16px;
+  border-bottom: 2px solid #000000;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000;
+}
+
+/* Ensure nested elements (links, spans) inside table remain black */
+.responsive-table th *, .responsive-table td * {
+  color: #000 !important;
+}
+
+.responsive-table th {
+  /* Header background handled via Tailwind class on <thead> */
+  font-weight: 600;
+}
+
+/* Keep the header visible while scrolling rows */
+.responsive-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: var(--header-h);
+}
+
+/* Normalize row height so 10 rows fit predictably */
+.responsive-table tbody tr {
+  height: var(--row-h);
+}
+
+/* Optional: finer control of certain columns */
+.responsive-table .cell-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.responsive-table .cell-fit {
+  width: 1%;
+}
+
+/* Slightly tighter rows on smaller screens to keep 10 rows visible */
+@media (max-width: 900px) {
+  .table-wrapper {
+    --row-h: 46px;
+    --header-h: 42px;
+  }
+}
+@media (max-width: 600px) {
+  .table-wrapper {
+    --row-h: 42px;
+    --header-h: 38px;
+  }
+}
+
+.responsive-table tr:last-child td {
+  border-bottom: none;
+}
+
+img {
+  border-radius: 4px;
+}
+
+/* Hard constraints to avoid oversized images breaking layout */
+.navbar-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+.table-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+}
+.table-banner {
+  width: 60px;
+  height: 30px;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .responsive-container {
+    padding: 1rem 0.5rem;
+  }
+  .responsive-table th, .responsive-table td {
+    padding: 8px 8px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .responsive-table {
+    min-width: 400px;
+    font-size: 12px;
+  }
+  .responsive-table th, .responsive-table td {
+    padding: 6px 4px;
+  }
+  .responsive-container {
+    padding: 0.5rem 0.2rem;
+  }
+}
