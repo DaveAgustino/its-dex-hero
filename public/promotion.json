@@ -1,15 +1,28 @@
 [
-	{
-		"logoUrl": "/logo/ec4d3867b7611be74a6d147d29a216b19f0ce48b161f86b4793369a9c96f9488.avif",
-		"name": "Bagwork",
-		"ticker": "bagwork",
-		"contractAddress": "7Pnqg1S6MYrL6AP1ZXcToTHfdBbTB77ze6Y33qBBpump",
-		"chain": "solana",
-		"buyUrl": "https://pump.fun/coin/7Pnqg1S6MYrL6AP1ZXcToTHfdBbTB77ze6Y33qBBpump",
-		"links": {
-			"x": "https://x.com/i/communities/1965925295229460830",
-			"website": "https://bagwork.org/",
-			"telegram": ""
-		}
-	}
+  {
+    "logoUrl": "/logo/ec4d3867b7611be74a6d147d29a216b19f0ce48b161f86b4793369a9c96f9488.avif",
+    "name": "Bagwork",
+    "ticker": "bagwork",
+    "contractAddress": "7Pnqg1S6MYrL6AP1ZXcToTHfdBbTB77ze6Y33qBBpump",
+    "chain": "solana",
+    "buyUrl": "https://pump.fun/coin/7Pnqg1S6MYrL6AP1ZXcToTHfdBbTB77ze6Y33qBBpump",
+    "links": {
+      "x": "https://x.com/i/communities/1965925295229460830",
+      "website": "https://bagwork.org/",
+      "telegram": ""
+    }
+  },
+  {
+    "logoUrl": "/logo/94829682e73f51cde5217f9bd0b85756ead922baeb9b82213ca5e3c5f13d1e49.avif",
+    "name": "Runner",
+    "ticker": "runner",
+    "contractAddress": "FyB8VxxYAaVVchAgbB1kvjWdw26ovaD4ipwV1j8epump",
+    "chain": "solana",
+    "buyUrl": "https://pump.fun/coin/FyB8VxxYAaVVchAgbB1kvjWdw26ovaD4ipwV1j8epump",
+    "links": {
+      "x": "https://x.com/i/communities/1967289859040596463",
+      "website": "https://pumprunner.com/",
+      "telegram": ""
+    }
+  }
 ]
