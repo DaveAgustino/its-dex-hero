@@ -127,34 +127,41 @@ const TrendingTicker: React.FC = () => {
   }
 
   return (
-    <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 overflow-hidden relative border-b-2 border-blue-300/30">
-      {/* Time Filter Buttons - Left side */}
-      <div className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 flex gap-1">
-        {(['5m', '1h', '6h', '24h'] as TimeFilter[]).map((filter) => (
-          <button
-            key={filter}
-            onClick={() => setTimeFilter(filter)}
-            className={`px-2 py-1 text-xs font-bold rounded transition-colors duration-200 ${
-              timeFilter === filter 
-                ? 'bg-yellow-500 text-black' 
-                : 'bg-white/20 text-white hover:bg-white/30'
-            }`}
-          >
-            {filter}
-          </button>
-        ))}
+    <div className="bg-gray-900 text-white py-6 overflow-hidden relative border-b-2 border-blue-600/30">
+      {/* Time Filter Dropdown - Top absolute */}
+      <div className="absolute top-0 left-0 z-10">
+      <select
+        value={timeFilter}
+        onChange={e => setTimeFilter(e.target.value as TimeFilter)}
+        className="px-5 py-2 text-xs font-bold rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors duration-200"
+      >
+        <option value="5m">5m</option>
+        <option value="1h">1h</option>
+        <option value="6h">6h</option>
+        <option value="24h">24h</option>
+      </select>
       </div>
-      
+      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10">
+        <select
+          value={timeFilter}
+          onChange={e => setTimeFilter(e.target.value as TimeFilter)}
+          className="px-5 py-6 text-xs font-bold rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors duration-200"
+        >
+          <option value="5m">5m</option>
+          <option value="1h">1h</option>
+          <option value="6h">6h</option>
+          <option value="24h">24h</option>
+        </select>
+      </div>
       {/* Static View Full Leaderboard Button - Right side */}
-      <div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10">
+      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10">
         <Link 
           href="/trending"
-          className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-3 py-1.5 rounded-full text-xs transition-colors duration-200 whitespace-nowrap"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-6 text-xs transition-colors duration-200 whitespace-nowrap rounded-none shadow-sm"
         >
-          📊 View Full Leaderboard
+          📊 View Trending Leaderboard
         </Link>
       </div>
-      
       <div className="absolute inset-0 flex items-center">
         <div className="animate-scroll flex whitespace-nowrap">
           {trendingTokens.map((token, index) => (
@@ -170,8 +177,8 @@ const TrendingTicker: React.FC = () => {
                 }}
                 onMouseLeave={() => setCopiedIndex(null)}
               >
-                <span className="text-yellow-300 font-bold mr-1 text-sm sm:text-base">🔥</span>
-                <span className="bg-yellow-500/80 text-black font-bold text-xs px-1.5 py-0.5 rounded-full mr-2">
+                <span className="text-blue-400 font-bold mr-1 text-sm sm:text-base">🔥</span>
+                <span className="bg-blue-600/80 text-white font-bold text-xs px-1.5 py-0.5 rounded-full mr-2">
                   #{index + 1}
                 </span>
                 <img 
@@ -194,7 +201,7 @@ const TrendingTicker: React.FC = () => {
                       const change = timeFilter === '5m' ? token.priceChangeM5 : 
                                     timeFilter === '1h' ? token.priceChangeH1 :
                                     timeFilter === '6h' ? token.priceChangeH6 : token.priceChangeH24;
-                      return change >= 0 ? 'bg-green-500/30 text-green-200' : 'bg-red-500/30 text-red-200';
+                      return change >= 0 ? 'bg-green-500/30 text-green-400' : 'bg-red-500/30 text-red-400';
                     })()
                   }`}
                 >
@@ -207,7 +214,7 @@ const TrendingTicker: React.FC = () => {
                 </span>
               </button>
               {/* Tooltip */}
-              <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 rounded bg-black/80 text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20 whitespace-nowrap"
+              <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 rounded bg-gray-800 text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20 whitespace-nowrap"
                 style={{ minWidth: '80px', textAlign: 'center' }}>
                 {copiedIndex === index ? 'CA Copied!' : 'Copy CA'}
               </span>
@@ -215,7 +222,6 @@ const TrendingTicker: React.FC = () => {
           ))}
         </div>
       </div>
-      
       <style jsx>{`
         @keyframes scroll {
           0% {
@@ -225,16 +231,12 @@ const TrendingTicker: React.FC = () => {
             transform: translateX(-100%);
           }
         }
-        
         .animate-scroll {
-          animation: scroll 60s linear infinite;
+          animation: scroll 20s linear infinite;
         }
-        
         .animate-scroll:hover {
           animation-play-state: paused;
         }
-        
-        /* Responsive adjustments */
         @media (max-width: 640px) {
           .animate-scroll {
             animation: scroll 45s linear infinite;
