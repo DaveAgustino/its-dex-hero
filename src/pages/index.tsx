@@ -137,160 +137,160 @@ const Home: React.FC = () => {
   const walletAddress = "DExBGQiUGHNZeyBoQ2WmWPFqvqM524fN6j1mC3E7hEro"; // Replace with actual wallet address
 
   return (
-    <div>
-      {/* Top 10 Trending Tokens Ticker */}
-      <TrendingTicker />
-      
-      <div className="responsive-container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gray-900 text-white">
+      <div className="container mx-auto px-4 py-8">
+        {/* Top 10 Trending Tokens Ticker */}
+            <TrendingTicker />
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+
+        </div>
         {/* PromotionSlider above PAID BY DEXHERO */}
         <PromotionSlider />
-      <div className="flex justify-center my-8">
-        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-4">
-          PAID BY DEXHERO
-        </h1>
-      </div>
-      {loading ? (
-        <p className="text-slate-300">Loading...</p>
-      ) : error ? (
-        <p className="text-red-400">{error}</p>
-      ) : (
-        <>
-          <div className="mb-4 flex flex-wrap items-center gap-3">
-            <div className="relative w-full max-w-sm">
-              <input
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search tokens, tickers, CA..."
-                aria-label="Search tokens"
-                className="w-full rounded-md bg-white/70 dark:bg-white/5 ring-1 ring-black/10 dark:ring-white/10 focus:ring-2 focus:ring-emerald-400/40 outline-none pl-8 pr-8 py-2 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400"
-              />
-            </div>
-            <span className="ml-auto inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium bg-slate-900/5 dark:bg-white/10 ring-1 ring-black/10 dark:ring-white/10 text-slate-600 dark:text-slate-300">
-              {filtered.length}
-              <span className="hidden sm:inline">
-                {" "}
-                result{filtered.length === 1 ? "" : "s"}
-              </span>
+        {/* Search and stats */}
+        <div className="mb-4 flex flex-wrap items-center gap-3">
+          <div className="relative w-full max-w-sm">
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search tokens, tickers, CA..."
+              aria-label="Search tokens"
+              className="w-full rounded-md bg-gray-800 text-white ring-1 ring-gray-700 focus:ring-2 focus:ring-blue-400 outline-none pl-8 pr-8 py-2 placeholder:text-gray-400"
+            />
+          </div>
+          <span className="ml-auto inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium bg-gray-800 text-gray-300">
+            {filtered.length}
+            <span className="hidden sm:inline">
+              {" "}
+              result{filtered.length === 1 ? "" : "s"}
             </span>
+          </span>
+        </div>
+        {loading ? (
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p className="text-lg">Loading tokens...</p>
           </div>
-          <div className="table-wrapper rounded-lg ring-1 ring-black/10 dark:ring-white/10 shadow-lg backdrop-blur bg-white/70 dark:bg-white/5">
-            <table className="responsive-table text-sm">
-              <thead className="bg-slate-100/70 dark:bg-slate-700/50">
-                <tr>
-                  <th className="font-semibold">NAME</th>
-                  <th className="font-semibold">TICKER</th>
-                  <th className="font-semibold">CA</th>
-                  <th className="font-semibold">MC</th>
-                  <th className="font-semibold">X</th>
-                  <th className="font-semibold">WEBSITE</th>
-                  <th className="font-semibold">LOGO</th>
-                  <th className="font-semibold">BANNER</th>
-                  <th className="font-semibold">STATUS</th>
-                  <th className="font-semibold">RECEIPT</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.length === 0 ? (
-                  <tr>
-                    <td colSpan={9} className="text-center text-slate-400 py-6">
-                      No matching results
-                    </td>
-                  </tr>
-                ) : (
-                  filtered.map((token, idx) => (
-                    <tr
-                      key={idx}
-                      className="odd:bg-white/0 even:bg-white/[0.02] hover:bg-white/[0.06] transition-colors"
-                    >
-                      <td className="font-medium">{token.name}</td>
-                      <td className="text-slate-300">{token.ticker}</td>
-                      <td className="cell-ellipsis ca-cell" title={token.ca}>
-                        <CopyableCA ca={token.ca} />
-                      </td>
-                      <td className="text-slate-300" title={token.mc}>
-                        <MarketCapCell ca={token.ca} defaultMc={token.mc} refreshCounter={refreshCounter} />
-                      </td>
-                      <td>
-                        <a
-                          href={token.x}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-slate-700/50 hover:bg-slate-600/60 transition-colors"
-                        >
-                          <img
-                            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg"
-                            alt="X"
-                            style={{ width: 20, height: 20 }}
-                          />
-                        </a>
-                      </td>
-                      <td>
-                        <a
-                          href={token.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-slate-700/50 hover:bg-slate-600/60 transition-colors"
-                        >
-                          <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          width={20}
-                          height={20}
-                          aria-hidden="true"
-                          >
-                          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
-                          <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" stroke="currentColor" strokeWidth="2" fill="none"/>
-                          </svg>
-                        </a>
-                      </td>
-                      <td className="cell-fit">
-                        <img
-                          src={token.logo}
-                          alt="logo"
-                          className="table-logo"
-                        />
-                      </td>
-                      <td className="cell-fit">
-                        <img
-                          src={token.banner}
-                          alt="banner"
-                          className="table-banner"
-                        />
-                      </td>
-                      <td>
-                        <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/20">
-                          {token.status}
-                        </span>
-                      </td>
-                      <td>
-                        {token.receipt ? (
-                          <a
-                            href={token.receipt}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-emerald-300 hover:text-emerald-200 underline underline-offset-2"
-                          >
-                            View Receipt
-                          </a>
-                        ) : (
-                          <span className="text-slate-400">N/A</span>
-                        )}
-                      </td>
+        ) : error ? (
+          <p className="text-red-400">{error}</p>
+        ) : (
+          <>
+            <div className="bg-gray-800 rounded-lg overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-gray-700">
+                    <tr>
+                      <th className="text-left p-4">Name</th>
+                      <th className="text-left p-4">Ticker</th>
+                      <th className="text-left p-4">CA</th>
+                      <th className="text-left p-4">Market Cap</th>
+                      <th className="text-left p-4">𝕏</th>
+                      <th className="text-left p-4">Website</th>
+                      <th className="text-left p-4">Logo</th>
+                      <th className="text-left p-4">Banner</th>
+                      <th className="text-left p-4">Status</th>
+                      <th className="text-left p-4">Receipt</th>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-          <br />
-          <div className="my-4">
-            <CreatorRewards walletAddress={walletAddress} />
-          </div>
-          <DonationAddress address="DExBGQiUGHNZeyBoQ2WmWPFqvqM524fN6j1mC3E7hEro" />
-        </>
-      )}
+                  </thead>
+                  <tbody>
+                    {filtered.length === 0 ? (
+                      <tr>
+                        <td
+                          colSpan={10}
+                          className="text-center text-gray-400 py-6"
+                        >
+                          No matching results
+                        </td>
+                      </tr>
+                    ) : (
+                      filtered.map((token, idx) => (
+                        <tr
+                          key={idx}
+                          className="border-t border-gray-700 hover:bg-gray-750 transition-colors"
+                        >
+                          <td className="p-4 font-semibold">{token.name}</td>
+                          <td className="p-4 text-gray-300">{token.ticker}</td>
+                          <td
+                            className="p-4 cell-ellipsis ca-cell"
+                            title={token.ca}
+                          >
+                            <CopyableCA ca={token.ca} />
+                          </td>
+                          <td className="p-4 font-mono" title={token.mc}>
+                            <MarketCapCell
+                              ca={token.ca}
+                              defaultMc={token.mc}
+                              refreshCounter={refreshCounter}
+                            />
+                          </td>
+                          <td className="p-4">
+                            <a
+                              href={token.x}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-400 hover:text-blue-300 transition-colors"
+                            >
+                              𝕏
+                            </a>
+                          </td>
+                          <td className="p-4">
+                            <a
+                              href={token.website}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-green-400 hover:text-green-300 transition-colors"
+                            >
+                              🌐
+                            </a>
+                          </td>
+                          <td className="p-4 cell-fit">
+                            <img
+                              src={token.logo}
+                              alt="logo"
+                              className="table-logo w-10 h-10 rounded-full"
+                            />
+                          </td>
+                          <td className="p-4 cell-fit">
+                            <img
+                              src={token.banner}
+                              alt="banner"
+                              className="table-banner w-20 h-10 rounded-lg object-cover"
+                            />
+                          </td>
+                          <td className="p-4">
+                            <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-blue-500/15 text-blue-300 ring-1 ring-blue-400/20">
+                              {token.status}
+                            </span>
+                          </td>
+                          <td className="p-4">
+                            {token.receipt ? (
+                              <a
+                                href={token.receipt}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-300 hover:text-blue-200 underline underline-offset-2"
+                              >
+                                View Receipt
+                              </a>
+                            ) : (
+                              <span className="text-gray-400">N/A</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <br />
+            <div className="my-4">
+              <CreatorRewards walletAddress={walletAddress} />
+            </div>
+            <DonationAddress address="DExBGQiUGHNZeyBoQ2WmWPFqvqM524fN6j1mC3E7hEro" />
+          </>
+        )}
       </div>
     </div>
   );
