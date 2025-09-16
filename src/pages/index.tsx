@@ -95,16 +95,16 @@ const Home: React.FC = () => {
           setTokens(data);
           setLoading(false);
           // Increment refresh counter to trigger market cap updates
-          setRefreshCounter(prev => prev + 1);
+          setRefreshCounter((prev) => prev + 1);
         })
         .catch((err) => {
           setError(err.message || "Failed to load data");
           setLoading(false);
         });
     };
-    
+
     fetchTokens();
-    
+
     // Refresh every 30 seconds in development
     const interval = setInterval(fetchTokens, 30000);
     return () => clearInterval(interval);
@@ -113,7 +113,7 @@ const Home: React.FC = () => {
   // Separate interval for market cap updates every 5 minutes
   useEffect(() => {
     const mcRefreshInterval = setInterval(() => {
-      setRefreshCounter(prev => prev + 1);
+      setRefreshCounter((prev) => prev + 1);
     }, 5 * 60 * 1000); // 5 minutes
 
     return () => clearInterval(mcRefreshInterval);
@@ -140,15 +140,14 @@ const Home: React.FC = () => {
     <div className="min-h-screen bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-8">
         {/* Top 10 Trending Tokens Ticker */}
-            <TrendingTicker />
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <TrendingTicker />
 
-        </div>
-        {/* PromotionSlider above PAID BY DEXHERO */}
+        <br />
+        <br />
+        {/* PromotionSlider */}
         <PromotionSlider />
         {/* Search and stats */}
-        <div className="mb-4 flex flex-wrap items-center gap-3">
+  <div className="mb-4 flex flex-wrap items-center gap-3">
           <div className="relative w-full max-w-sm">
             <input
               type="search"
@@ -159,6 +158,36 @@ const Home: React.FC = () => {
               className="w-full rounded-md bg-gray-800 text-white ring-1 ring-gray-700 focus:ring-2 focus:ring-blue-400 outline-none pl-8 pr-8 py-2 placeholder:text-gray-400"
             />
           </div>
+
+        {/*
+
+        <style>{`
+          @keyframes glowPulse {
+            0% { box-shadow: 0 0 16px 4px #3b82f6, 0 0 32px 8px #60a5fa; }
+            50% { box-shadow: 0 0 32px 12px #2563eb, 0 0 48px 16px #3b82f6; }
+            100% { box-shadow: 0 0 16px 4px #3b82f6, 0 0 32px 8px #60a5fa; }
+          }
+          .floating-vote-btn {
+            transition: transform 0.2s, box-shadow 0.2s;
+          }
+          .floating-vote-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 48px 16px #2563eb, 0 0 96px 32px #3b82f6;
+            filter: brightness(1.15);
+          }
+        `}</style>
+        <a
+          href="/vote"
+          className="floating-vote-btn fixed bottom-8 right-8 z-50 px-7 py-4 rounded-full bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 text-white font-extrabold text-xl border-4 border-blue-300 flex items-center gap-3 animate-pulse"
+          style={{
+            textDecoration: 'none',
+            animation: 'glowPulse 1.5s infinite',
+            boxShadow: '0 0 24px 8px #3b82f6, 0 0 48px 16px #60a5fa',
+          }}
+        >
+          Vote for your project
+        </a>
+        */}
           <span className="ml-auto inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium bg-gray-800 text-gray-300">
             {filtered.length}
             <span className="hidden sm:inline">
@@ -351,11 +380,11 @@ const CopyableCA: React.FC<{ ca: string }> = ({ ca }) => {
 /**
  * Displays market cap from Dexscreener using CA; falls back to defaultMc.
  */
-const MarketCapCell: React.FC<{ ca: string; defaultMc: string; refreshCounter?: number }> = ({
-  ca,
-  defaultMc,
-  refreshCounter = 0,
-}) => {
+const MarketCapCell: React.FC<{
+  ca: string;
+  defaultMc: string;
+  refreshCounter?: number;
+}> = ({ ca, defaultMc, refreshCounter = 0 }) => {
   const [value, setValue] = useState<number | null>(null);
   const [pairUrl, setPairUrl] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
