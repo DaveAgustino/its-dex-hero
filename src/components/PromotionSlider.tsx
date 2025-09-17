@@ -1,6 +1,5 @@
-
-import React, { useEffect, useState } from 'react';
-import Promotion from './Promotion';
+import React, { useEffect, useState } from "react";
+import Promotion from "./Promotion";
 
 // Fire Effect Component
 const FireEffect: React.FC = () => {
@@ -24,16 +23,17 @@ const FireEffect: React.FC = () => {
           justify-content: space-around;
           align-items: flex-start;
         }
-        
+
         .fire {
           width: 8px;
           height: 20px;
-          background: linear-gradient(0deg, 
-            transparent 0%, 
-            #ff4500 20%, 
-            #ff6b00 40%, 
-            #ff8c00 60%, 
-            #ffa500 80%, 
+          background: linear-gradient(
+            0deg,
+            transparent 0%,
+            #ff4500 20%,
+            #ff6b00 40%,
+            #ff8c00 60%,
+            #ffa500 80%,
             #ffff00 100%
           );
           border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
@@ -41,32 +41,32 @@ const FireEffect: React.FC = () => {
           opacity: 0.8;
           transform: rotate(180deg);
         }
-        
+
         .fire-1 {
           animation-delay: 0s;
           height: 15px;
         }
-        
+
         .fire-2 {
           animation-delay: 0.2s;
           height: 25px;
         }
-        
+
         .fire-3 {
           animation-delay: 0.4s;
           height: 18px;
         }
-        
+
         .fire-4 {
           animation-delay: 0.6s;
           height: 22px;
         }
-        
+
         .fire-5 {
           animation-delay: 0.1s;
           height: 16px;
         }
-        
+
         @keyframes fireFlicker {
           0% {
             transform: scaleY(1) scaleX(1) rotate(-2deg);
@@ -114,29 +114,48 @@ interface OnChainData {
   marketCapChange?: string;
 }
 
-const fetchMarketCapData = async (contractAddress: string, chain: string): Promise<OnChainData> => {
-  if (chain.toLowerCase() !== 'solana') {
-    return { marketCap: 'N/A', holderCount: 0 };
+const fetchMarketCapData = async (
+  contractAddress: string,
+  chain: string
+): Promise<OnChainData> => {
+  if (chain.toLowerCase() !== "solana") {
+    return { marketCap: "N/A", holderCount: 0 };
   }
   try {
-    const res = await fetch(`/api/marketcap?ca=${encodeURIComponent(contractAddress)}`);
-    
+    const res = await fetch(
+      `/api/marketcap?ca=${encodeURIComponent(contractAddress)}`
+    );
+
     if (!res.ok) {
-      console.error(`API failed for ${contractAddress}:`, res.status, res.statusText);
-      return { marketCap: 'N/A', holderCount: 0 };
+      console.error(
+        `API failed for ${contractAddress}:`,
+        res.status,
+        res.statusText
+      );
+      return { marketCap: "N/A", holderCount: 0 };
     }
-    
+
     const data = await res.json();
     console.log(`✅ Market cap data for ${contractAddress}:`, data);
-    console.log(`📊 Raw data.marketCap:`, data?.marketCap, `(type: ${typeof data?.marketCap})`);
-    
+    console.log(
+      `📊 Raw data.marketCap:`,
+      data?.marketCap,
+      `(type: ${typeof data?.marketCap})`
+    );
+
     let marketCap: string;
-    if (data?.marketCap === 'PUMP.FUN') {
-      marketCap = 'Pump.fun Token';
+    if (data?.marketCap === "PUMP.FUN") {
+      marketCap = "Pump.fun Token";
       console.log(`🎯 Using PUMP.FUN fallback`);
-    } else if (data?.marketCap && (typeof data.marketCap === 'number' || typeof data.marketCap === 'string')) {
+    } else if (
+      data?.marketCap &&
+      (typeof data.marketCap === "number" || typeof data.marketCap === "string")
+    ) {
       // Handle both number and string marketCap responses
-      if (typeof data.marketCap === 'string' && data.marketCap.startsWith('$')) {
+      if (
+        typeof data.marketCap === "string" &&
+        data.marketCap.startsWith("$")
+      ) {
         marketCap = data.marketCap; // Already formatted
         console.log(`💰 Using formatted marketCap: ${marketCap}`);
       } else {
@@ -144,34 +163,40 @@ const fetchMarketCapData = async (contractAddress: string, chain: string): Promi
         console.log(`💰 Formatted marketCap: ${marketCap}`);
       }
     } else {
-      marketCap = 'N/A';
+      marketCap = "N/A";
       console.log(`❌ Fallback to N/A because:`, {
         hasMarketCap: !!data?.marketCap,
         marketCapValue: data?.marketCap,
-        marketCapType: typeof data?.marketCap
+        marketCapType: typeof data?.marketCap,
       });
     }
-    
+
     console.log(`🎉 Final marketCap for ${contractAddress}: "${marketCap}"`);
-    
-    const holderCount = typeof data?.holderCount === 'number' ? data.holderCount : 0;
-    
+
+    const holderCount =
+      typeof data?.holderCount === "number" ? data.holderCount : 0;
+
     // Use percentage change from Dexscreener API
-    let marketCapChange = '';
+    let marketCapChange = "";
     if (data.priceChangeH24 !== undefined && data.priceChangeH24 !== null) {
-      const sign = data.priceChangeH24 >= 0 ? '+' : '';
+      const sign = data.priceChangeH24 >= 0 ? "+" : "";
       marketCapChange = `${sign}${data.priceChangeH24.toFixed(2)}%`;
-      console.log(`📈 Using Dexscreener percentage change for ${contractAddress}: ${marketCapChange}`);
+      console.log(
+        `📈 Using Dexscreener percentage change for ${contractAddress}: ${marketCapChange}`
+      );
     }
-    
-    return { 
-      marketCap, 
-      holderCount, 
-      marketCapChange
+
+    return {
+      marketCap,
+      holderCount,
+      marketCapChange,
     };
   } catch (error) {
-    console.error(`❌ Error fetching market cap for ${contractAddress}:`, error);
-    return { marketCap: 'N/A', holderCount: 0 };
+    console.error(
+      `❌ Error fetching market cap for ${contractAddress}:`,
+      error
+    );
+    return { marketCap: "N/A", holderCount: 0 };
   }
 };
 
@@ -187,9 +212,9 @@ const PromotionSlider: React.FC = () => {
         .then((data) => setPromotions(data))
         .catch(() => setPromotions([]));
     };
-    
+
     fetchPromotions();
-    
+
     // Refresh every 30 seconds in development
     const interval = setInterval(fetchPromotions, 30000);
     return () => clearInterval(interval);
@@ -211,9 +236,9 @@ const PromotionSlider: React.FC = () => {
 
     // Add fire effect when slideTime is 5000 (hot trending)
     if (slideTimes[current] === 5000) {
-        document.body.classList.add('fire-effect');
+      document.body.classList.add("fire-effect");
     } else {
-        document.body.classList.remove('fire-effect');
+      document.body.classList.remove("fire-effect");
     }
     const getSlideTime = (idx: number) => slideTimes[idx] || 4000;
 
@@ -224,25 +249,26 @@ const PromotionSlider: React.FC = () => {
     return () => clearTimeout(timer);
   }, [promotions, current]);
 
-  if (promotions.length === 0 || onChain.length !== promotions.length) return null;
+  if (promotions.length === 0 || onChain.length !== promotions.length)
+    return null;
 
   const currentPromotion = promotions[current];
   const currentOnChain = onChain[current];
-  
-  console.log('🎯 Rendering promotion:', {
+
+  console.log("🎯 Rendering promotion:", {
     name: currentPromotion.name,
     contractAddress: currentPromotion.contractAddress,
     marketCap: currentOnChain.marketCap,
-    holderCount: currentOnChain.holderCount
+    holderCount: currentOnChain.holderCount,
   });
 
   return (
     <div className="w-full flex flex-col items-center">
       <div className="relative">
         <FireEffect />
-        <Promotion 
-          {...currentPromotion} 
-          marketCap={currentOnChain.marketCap} 
+        <Promotion
+          {...currentPromotion}
+          marketCap={currentOnChain.marketCap}
           holderCount={currentOnChain.holderCount}
           marketCapChange={currentOnChain.marketCapChange}
         />
@@ -251,7 +277,9 @@ const PromotionSlider: React.FC = () => {
         {promotions.map((_, idx) => (
           <button
             key={idx}
-            className={`w-3 h-3 rounded-full border border-blue-400 focus:outline-none ${idx === current ? 'bg-blue-400' : 'bg-blue-200'}`}
+            className={`w-3 h-3 rounded-full border border-blue-400 focus:outline-none ${
+              idx === current ? "bg-blue-400" : "bg-blue-200"
+            }`}
             onClick={() => setCurrent(idx)}
             aria-label={`Go to promotion ${idx + 1}`}
           />

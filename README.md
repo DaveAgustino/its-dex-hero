@@ -1,4 +1,3 @@
-
 # its-dex-hero
 
 its-dex-hero is a decentralized exchange (DEX) dashboard built with Next.js and React. It provides real-time market data, trending tokens, and promotional features for creators and users.
