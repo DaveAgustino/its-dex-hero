@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { PublicKey, Connection } from '@solana/web3.js';
-import { OnlinePumpSdk } from '@pump-fun/pump-sdk';
+import React, { useEffect, useState } from "react";
+import { PublicKey, Connection } from "@solana/web3.js";
+import { OnlinePumpSdk } from "@pump-fun/pump-sdk";
 
 interface CreatorRewardsProps {
   walletAddress: string;
   rpcUrl?: string;
 }
 
-const DEFAULT_RPC = 'https://mainnet.helius-rpc.com/?api-key=de03ebf3-22c1-483c-a5bc-04d46eb8ff61';
+const DEFAULT_RPC = process.env.NEXT_PUBLIC_RPC_URL || "";
 
-const CreatorRewards: React.FC<CreatorRewardsProps> = ({ walletAddress, rpcUrl = DEFAULT_RPC }) => {
-  const [rewards, setRewards] = useState<string>('0');
+const CreatorRewards: React.FC<CreatorRewardsProps> = ({
+  walletAddress,
+  rpcUrl = DEFAULT_RPC,
+}) => {
+  const [rewards, setRewards] = useState<string>("0");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -20,13 +23,15 @@ const CreatorRewards: React.FC<CreatorRewardsProps> = ({ walletAddress, rpcUrl =
       setLoading(true);
       setError(null);
       try {
-        const connection = new Connection(rpcUrl, 'confirmed');
+        const connection = new Connection(rpcUrl, "confirmed");
         const sdk = new OnlinePumpSdk(connection);
         const creatorPubkey = new PublicKey(walletAddress);
-        const balanceBN = await sdk.getCreatorVaultBalanceBothPrograms(creatorPubkey);
+        const balanceBN = await sdk.getCreatorVaultBalanceBothPrograms(
+          creatorPubkey
+        );
         setRewards((Number(balanceBN.toString()) / 1e9).toFixed(4));
       } catch (e: any) {
-        setError(e.message || 'Failed to fetch rewards');
+        setError(e.message || "Failed to fetch rewards");
       } finally {
         setLoading(false);
       }
@@ -58,25 +63,33 @@ const CreatorRewards: React.FC<CreatorRewardsProps> = ({ walletAddress, rpcUrl =
       >
         {walletAddress}
         {copied && (
-          <span className="ml-2 text-xs rounded-full bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/20 px-1.5 py-0.5">Copied</span>
+          <span className="ml-2 text-xs rounded-full bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/20 px-1.5 py-0.5">
+            Copied
+          </span>
         )}
       </button>
       {loading ? (
-        <span className="mt-2 text-green-700 dark:text-green-300">Loading rewards...</span>
+        <span className="mt-2 text-green-700 dark:text-green-300">
+          Loading rewards...
+        </span>
       ) : error ? (
         <span className="mt-2 text-red-500">Error: {error}</span>
       ) : (
-        <span className="mt-2 text-green-700 dark:text-green-300 font-semibold">Total Rewards: {rewards} SOL</span>
+        <span className="mt-2 text-green-700 dark:text-green-300 font-semibold">
+          Total Rewards: {rewards} SOL
+        </span>
       )}
-      <span className="text-xs mt-1 text-green-700 dark:text-green-300">Creator rewards earned from <a
-      href="https://pump.fun/"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-xs mt-1 text-green-700 dark:text-green-300 underline hover:text-green-900 dark:hover:text-green-100"
-    >
-      Pump.fun
-    </a></span>
-    
+      <span className="text-xs mt-1 text-green-700 dark:text-green-300">
+        Creator rewards earned from{" "}
+        <a
+          href="https://pump.fun/profile/DExBGQiUGHNZeyBoQ2WmWPFqvqM524fN6j1mC3E7hEro"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs mt-1 text-green-700 dark:text-green-300 underline hover:text-green-900 dark:hover:text-green-100"
+        >
+          Pump.fun
+        </a>
+      </span>
     </div>
   );
 };

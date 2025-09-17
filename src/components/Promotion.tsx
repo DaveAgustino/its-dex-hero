@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React from "react";
 
 interface PromotionProps {
   logoUrl: string;
@@ -29,15 +29,15 @@ const Promotion: React.FC<PromotionProps> = ({
   marketCapChange,
 }) => {
   const [copied, setCopied] = React.useState(false);
-  
+
   // Debug logging
   console.log(`🎯 Promotion component received:`, {
     name,
     contractAddress,
     marketCap,
-    marketCapType: typeof marketCap
+    marketCapType: typeof marketCap,
   });
-  
+
   const handleCopy = () => {
     navigator.clipboard.writeText(contractAddress);
     setCopied(true);

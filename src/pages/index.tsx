@@ -147,7 +147,7 @@ const Home: React.FC = () => {
         {/* PromotionSlider */}
         <PromotionSlider />
         {/* Search and stats */}
-  <div className="mb-4 flex flex-wrap items-center gap-3">
+        <div className="mb-4 flex flex-wrap items-center gap-3">
           <div className="relative w-full max-w-sm">
             <input
               type="search"
@@ -159,7 +159,7 @@ const Home: React.FC = () => {
             />
           </div>
 
-        {/*
+          {/*
 
         <style>{`
           @keyframes glowPulse {
