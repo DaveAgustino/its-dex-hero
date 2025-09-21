@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import Footer from "../components/Footer";
 
 export default function Document() {
   return (
@@ -11,7 +12,6 @@ export default function Document() {
           content="Solana, DEX, tokens, DeFi, crypto, voting, blockchain, projects"
         />
         <meta name="author" content="DEX Hero Team" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
@@ -47,6 +47,7 @@ export default function Document() {
       <body className="min-h-screen bg-black text-slate-100 antialiased">
         <Main />
         <NextScript />
+        <Footer />
       </body>
     </Html>
   );
