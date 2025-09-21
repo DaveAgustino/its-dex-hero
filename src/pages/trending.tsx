@@ -205,15 +205,15 @@ const TrendingPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-slate-900 text-white pt-20">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">
+            <h1 className="text-4xl md:text-4xl font-bold mb-2">
               🏆 Trending Leaderboard
             </h1>
-            <p className="text-gray-400">
+            <p className="text-gray-400 font-medium ">
               Real-time rankings based on performance
             </p>
 
@@ -234,12 +234,24 @@ const TrendingPage: React.FC = () => {
               ))}
             </div>
           </div>
-          <Link
-            href="/"
-            className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors duration-200"
-          >
-            ← Back to Home
-          </Link>
+       <Link
+  href="/"
+  className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-medium px-5 py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 border border-blue-500/30"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth="2"
+    className="transition-transform duration-300 group-hover:-translate-x-1"
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+  </svg>
+  Back to Home
+</Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">

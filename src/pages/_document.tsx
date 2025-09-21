@@ -6,7 +6,8 @@ export default function Document() {
     <Html lang="en">
       <Head>
         {/* Primary Meta Tags */}
-        <meta name="description" content="Pays DEX for free" />
+        <title>DEX Hero - Pays DEX for free</title>
+        <meta name="description" content="Pays DEX for free for your favorite Solana projects" />
         <meta
           name="keywords"
           content="Solana, DEX, tokens, DeFi, crypto, voting, blockchain, projects"
@@ -21,7 +22,9 @@ export default function Document() {
           content="Pays DEX for free for your favorite Solana projects"
         />
         <meta property="og:url" content="https://dexhero.fun/" />
-        <meta property="og:image" content="https://dexhero.fun/og-image.png" />
+        <meta property="og:image" content="/images/dexhero-banner.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -30,19 +33,15 @@ export default function Document() {
           name="twitter:description"
           content="Pays DEX for free for your favorite Solana projects"
         />
-        <meta name="twitter:image" content="https://dexhero.fun/og-image.png" />
+        <meta name="twitter:image" content="/images/dexhero-banner.jpg" />
         <meta name="twitter:site" content="@dexherodotfun" />
 
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" />
-        {/* Apple Touch Icon */}
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        {/* Manifest */}
+        {/* Favicon - Modern + Legacy Support */}
+        <link rel="icon" href="/images/dexhero-logo.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/dexhero-logo.png" />
         <link rel="manifest" href="/site.webmanifest" />
+        {/* Optional: Generate favicon.ico for IE/legacy */}
+        {/* <link rel="shortcut icon" href="/favicon.ico" /> */}
       </Head>
       <body className="min-h-screen bg-black text-slate-100 antialiased">
         <Main />

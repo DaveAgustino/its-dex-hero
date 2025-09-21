@@ -143,7 +143,7 @@ const TrendingTicker: React.FC = () => {
   }
 
   return (
-    <div className="bg-gray-900 text-white py-6 overflow-hidden relative border-b-2 border-blue-600/30">
+    <div className="bg-gray-700 text-white py-6 overflow-hidden relative border-b-2 border-blue-600/30">
       {/* Time Filter Dropdown - Top absolute */}
       <div className="absolute top-0 left-0 z-10">
         <select
@@ -173,7 +173,7 @@ const TrendingTicker: React.FC = () => {
       <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10">
         <Link
           href="/trending"
-          className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-6 text-xs transition-colors duration-200 whitespace-nowrap rounded-none shadow-sm"
+          className="bg-slate-600 hover:bg-blue-700 text-white font-bold px-4 py-6 text-xs transition-colors duration-200 whitespace-nowrap rounded-none shadow-sm"
         >
           📊 View Trending Leaderboard
         </Link>

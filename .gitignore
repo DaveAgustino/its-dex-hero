@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 package-lock.json
+
+
+# Local package.json and lockfile overrides
+package.json
+yarn.lock
